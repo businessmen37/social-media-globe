@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — Social Media Globe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="logo/logo-icon.svg">
+<link rel="apple-touch-icon" href="logo/social/profile-picture.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .account-wrap{ max-width: 720px; margin: 0 auto; padding: 64px 24px 100px; }
+  .order-card{
+    background: var(--ink-panel); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 20px; margin-bottom: 14px;
+  }
+  .order-card-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  .order-number{ font-family: var(--mono); color: var(--gold); font-size: 14px; }
+  .order-date{ font-family: var(--mono); color: var(--text-mute); font-size: 12px; }
+  .order-items{ margin: 12px 0; font-size: 13.5px; color: var(--text-mute); }
+  .order-items div{ padding: 4px 0; }
+  .order-total{ font-family: var(--mono); color: var(--text); font-weight:600; }
+  .status-badge{
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+    padding: 4px 10px; border-radius: 999px; display:inline-block;
+  }
+  .status-ordered{ background: rgba(232,163,61,.15); color: var(--gold); }
+  .status-in_progress{ background: rgba(79,209,197,.15); color: var(--teal); }
+  .status-completed{ background: rgba(111,227,138,.15); color: #6FE38A; }
+  .account-empty{ color: var(--text-mute); text-align:center; padding: 40px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="logo/logo-icon.svg" alt="" class="brand-mark"> Social Media Globe</a>
+    <nav class="nav-links nav-links-simple">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="policies.html">Policies</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="index.html">← Back to site</a>
+    </div>
+  </div>
+</header>
+
+<main class="account-wrap">
+
+  <!-- Signed out: show sign in / sign up -->
+  <section id="account-signed-out">
+    <div class="eyebrow">Your account</div>
+    <h2>Sign in to see your orders</h2>
+
+    <div class="auth-tabs" style="max-width:320px;">
+      <button class="auth-tab active" data-tab="signin">Sign In</button>
+      <button class="auth-tab" data-tab="signup">Create Account</button>
+    </div>
+
+    <form id="page-auth-signin" class="auth-form" style="max-width:320px;">
+      <label>Email<input type="email" id="page-signin-email" required></label>
+      <label>Password<input type="password" id="page-signin-password" required></label>
+      <button type="submit" class="btn btn-primary cart-full">Sign In</button>
+      <p class="auth-error" id="page-signin-error"></p>
+    </form>
+
+    <form id="page-auth-signup" class="auth-form" style="max-width:320px;" hidden>
+      <label>Email<input type="email" id="page-signup-email" required></label>
+      <label>Phone (best number to reach you)<input type="tel" id="page-signup-phone" required></label>
+      <label>Password (6+ characters)<input type="password" id="page-signup-password" minlength="6" required></label>
+      <button type="submit" class="btn btn-primary cart-full">Create Account</button>
+      <p class="auth-error" id="page-signup-error"></p>
+      <p class="auth-note" id="page-signup-success" hidden>Check your email to confirm your account, then sign in.</p>
+    </form>
+  </section>
+
+  <!-- Signed in: show profile + orders -->
+  <section id="account-signed-in" hidden>
+    <div class="eyebrow">Your account</div>
+    <h2 id="account-greeting">Welcome back</h2>
+
+    <div class="contact-card" style="margin: 20px 0 36px;">
+      <div class="contact-row"><span>Email</span><span id="account-email">—</span></div>
+      <div class="contact-row"><span>Phone</span><span id="account-phone">—</span></div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <h3 style="margin:0; font-size:18px;">Your orders</h3>
+      <button class="mini-btn" id="account-signout">Sign Out</button>
+    </div>
+
+    <div id="orders-list">
+      <p class="account-empty">Loading your orders…</p>
+    </div>
+
+    <p style="margin-top:30px;">
+      <a id="account-admin-link" href="admin.html" class="btn btn-ghost" hidden>Open Admin Dashboard →</a>
+    </p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© <span id="year"></span> Social Media Globe</span>
+  <span>socialmediaglobe.net</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-app.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.querySelectorAll(".auth-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".auth-tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    const isSignin = tab.dataset.tab === "signin";
+    document.getElementById("page-auth-signin").hidden = !isSignin;
+    document.getElementById("page-auth-signup").hidden = isSignin;
+  });
+});
+
+document.getElementById("page-auth-signin").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("page-signin-email").value;
+  const password = document.getElementById("page-signin-password").value;
+  const errEl = document.getElementById("page-signin-error");
+  errEl.textContent = "";
+  const { error } = await smgSignIn(email, password);
+  if (error) { errEl.textContent = error.message; return; }
+  loadAccount();
+});
+
+document.getElementById("page-auth-signup").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("page-signup-email").value;
+  const phone = document.getElementById("page-signup-phone").value;
+  const password = document.getElementById("page-signup-password").value;
+  const errEl = document.getElementById("page-signup-error");
+  const okEl = document.getElementById("page-signup-success");
+  errEl.textContent = "";
+  okEl.hidden = true;
+  const { error } = await smgSignUp(email, password, phone);
+  if (error) { errEl.textContent = error.message; return; }
+  okEl.hidden = false;
+});
+
+document.getElementById("account-signout").addEventListener("click", async () => {
+  await smgSignOut();
+  location.reload();
+});
+
+function statusLabel(status){
+  return { ordered: "Ordered", in_progress: "In Progress", completed: "Completed" }[status] || status;
+}
+
+async function loadAccount(){
+  const session = await smgGetSession();
+  const signedOutEl = document.getElementById("account-signed-out");
+  const signedInEl = document.getElementById("account-signed-in");
+
+  if (!session) {
+    signedOutEl.hidden = false;
+    signedInEl.hidden = true;
+    return;
+  }
+
+  signedOutEl.hidden = true;
+  signedInEl.hidden = false;
+
+  const profile = await smgGetProfile();
+  document.getElementById("account-greeting").textContent = `Welcome back${profile?.email ? ", " + profile.email.split("@")[0] : ""}`;
+  document.getElementById("account-email").textContent = session.user.email;
+  document.getElementById("account-phone").textContent = profile?.phone || "—";
+
+  if (profile?.role === "admin") {
+    document.getElementById("account-admin-link").hidden = false;
+  }
+
+  const { data: orders, error } = await sb
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const listEl = document.getElementById("orders-list");
+  if (error) {
+    listEl.innerHTML = `<p class="account-empty">Couldn't load orders right now — please refresh.</p>`;
+    console.error(error);
+    return;
+  }
+
+  if (!orders || orders.length === 0) {
+    listEl.innerHTML = `<p class="account-empty">No orders yet — head back to the site to get started.</p>`;
+    return;
+  }
+
+  listEl.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="order-card-head">
+        <div>
+          <div class="order-number">${o.order_number}</div>
+          <div class="order-date">${new Date(o.created_at).toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" })}</div>
+        </div>
+        <span class="status-badge status-${o.status}">${statusLabel(o.status)}</span>
+      </div>
+      <div class="order-items">
+        ${o.items.map(i => `<div>${i.qty}× ${i.name}</div>`).join("")}
+      </div>
+      <div class="order-total">Total: $${Number(o.total).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
+    </div>
+  `).join("");
+}
+
+loadAccount();
+</script>
+</body>
+</html>

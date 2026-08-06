@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Globe — Real Growth, Worldwide</title>
+<meta name="description" content="Websites, social media monetization, TikTok Shop setup, monetized accounts, and automated PC builds — done by a real team, not bots.">
+
+<!--
+  ============================================================
+  Config lives in supabase-app.js (Supabase URL/key, PayPal
+  client-id, WhatsApp number, social links) — edit that one file
+  for anything that needs updating. See README.md for full setup.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="logo/logo-icon.svg">
+<link rel="apple-touch-icon" href="logo/social/profile-picture.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><img src="logo/logo-icon.svg" alt="" class="brand-mark"> Social Media Globe</a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#pricing-website">Websites</a>
+      <a href="#pricing-growth">Growth</a>
+      <a href="#pricing-shop">TikTok Shop</a>
+      <a href="#pricing-accounts">Accounts</a>
+      <a href="#pricing-jarvis">Jarvis Builds</a>
+      <a href="#contact">Contact</a>
+      <a href="account.html">My Account</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-cart" id="cart-open" aria-label="Open cart">
+        🛒 Cart <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <a class="btn btn-whatsapp" href="https://wa.me/1XXXXXXXXXX?text=Hi%20Social%20Media%20Globe%2C%20I%27d%20like%20to%20know%20more" target="_blank" rel="noopener">WhatsApp Us</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Worldwide team · Real people, real work</div>
+        <h1>We grow accounts <em>ourselves</em>,<br>we don't rent you bots.</h1>
+        <p class="lede">Websites, social media monetization, TikTok Shop setup, ready-made monetized accounts, and automated "Jarvis" PC builds — delivered by a real team that actually does the work, not a script.</p>
+        <div class="hero-ctas">
+          <a href="#services" class="btn btn-primary">See Packages &amp; Pricing</a>
+          <a href="https://wa.me/1XXXXXXXXXX?text=Hi%20Social%20Media%20Globe%2C%20I%27d%20like%20to%20know%20more" target="_blank" rel="noopener" class="btn btn-ghost">Talk to Us on WhatsApp</a>
+        </div>
+        <div class="hero-note">No bots, no fake panels. <b>Every view, follow, and watch-hour comes from our own team.</b></div>
+      </div>
+
+      <div class="feed" aria-hidden="true">
+        <div class="feed-head">
+          <span>Live activity</span>
+          <span class="live"><span class="pulse"></span> team online</span>
+        </div>
+        <div class="feed-body">
+          <div class="feed-list" id="feed-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST BAND ============ -->
+  <div class="trust">
+    <div class="wrap trust-grid">
+      <p class="trust-lead"><b>Zero bots, ever.</b> Our team personally handles every growth job — that's why it's priced per result, not per thousand fake clicks.</p>
+      <div class="stat"><b>5</b><span>Core services</span></div>
+      <div class="stat"><b>1x</b><span>Fee for websites — free hosting for life</span></div>
+      <div class="stat"><b>Live</b><span>Guided setup calls for TikTok Shop</span></div>
+    </div>
+  </div>
+
+  <!-- ============ SERVICES OVERVIEW ============ -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">What we do</div>
+        <h2>Five ways we help you grow online</h2>
+        <p>Pick one service or stack them — most clients start with a website, then move into growth and monetization.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="num">01</div>
+          <h3>Website Development</h3>
+          <p>A custom site built once, hosted free forever after. Service sites, e-commerce/business sites, or personal sites for artists and events.</p>
+          <a href="#pricing-website">See pricing →</a>
+        </div>
+        <div class="service-card">
+          <div class="num">02</div>
+          <h3>Social Growth &amp; Monetization</h3>
+          <p>Real subscribers, real watch hours, real views on YouTube, Facebook, TikTok, and Instagram — done by our team until you hit the platform's monetization bar.</p>
+          <a href="#pricing-growth">See pricing →</a>
+        </div>
+        <div class="service-card">
+          <div class="num">03</div>
+          <h3>TikTok Shop Setup</h3>
+          <p>Guided, live-call setup to launch as a TikTok Shop seller with sourced products, or become an approved Creator on the Creator Reward Program.</p>
+          <a href="#pricing-shop">See pricing →</a>
+        </div>
+        <div class="service-card">
+          <div class="num">04</div>
+          <h3>Monetized Account Sales</h3>
+          <p>Ready-to-use, already-monetized accounts built by our own team, sold with a guaranty. Inventory changes often — check current listings.</p>
+          <a href="#pricing-accounts">See pricing →</a>
+        </div>
+        <div class="service-card">
+          <div class="num">05</div>
+          <h3>Automated PC / "Jarvis" Builds</h3>
+          <p>The personal automation setup you've seen on social media — a system built to handle your repetitive work for you.</p>
+          <a href="#pricing-jarvis">See pricing →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING: WEBSITES ============ -->
+  <section id="pricing-website" class="pricing-section">
+    <div class="wrap">
+      <div class="pricing-block">
+        <div class="pricing-block-head">
+          <div>
+            <h3>01 · Website Development</h3>
+            <p>One-time fee. Hosted free, forever, after launch.</p>
+          </div>
+        </div>
+        <table class="price-table">
+          <tr>
+            <td class="item">Service website</td>
+            <td class="amt">$299</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="web-service" data-name="Service website" data-price="299">Add to cart</button></td>
+          </tr>
+          <tr>
+            <td class="item">Business / E-commerce website</td>
+            <td class="amt">$399</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="web-business" data-name="Business / E-commerce website" data-price="399">Add to cart</button></td>
+          </tr>
+          <tr>
+            <td class="item">Personal website (artist / events)</td>
+            <td class="amt">$199</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="web-personal" data-name="Personal website (artist/events)" data-price="199">Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING: GROWTH ============ -->
+  <section id="pricing-growth" class="pricing-section">
+    <div class="wrap">
+      <div class="pricing-block">
+        <div class="pricing-block-head">
+          <div>
+            <h3>02 · Social Growth &amp; Monetization</h3>
+            <p>Real engagement toward each platform's monetization requirements.</p>
+          </div>
+        </div>
+        <table class="price-table">
+          <tr><td class="item">YouTube — 1,000 subscribers</td><td class="amt">$50</td><td class="action"><button class="mini-btn add-cart" data-id="yt-1k-subs" data-name="YouTube — 1,000 subscribers" data-price="50">Add to cart</button></td></tr>
+          <tr><td class="item">YouTube — 4,000 watch hours</td><td class="amt">$120</td><td class="action"><button class="mini-btn add-cart" data-id="yt-4k-hours" data-name="YouTube — 4,000 watch hours" data-price="120">Add to cart</button></td></tr>
+          <tr><td class="item">YouTube — 100,000 views</td><td class="amt">$100</td><td class="action"><button class="mini-btn add-cart" data-id="yt-100k-views" data-name="YouTube — 100,000 views" data-price="100">Add to cart</button></td></tr>
+          <tr><td class="item">Facebook — page already monetized</td><td class="amt">$220</td><td class="action"><button class="mini-btn add-cart" data-id="fb-monetized-page" data-name="Facebook — page already monetized" data-price="220">Add to cart</button></td></tr>
+          <tr><td class="item">Facebook — 60k / 600k minutes viewed</td><td class="amt">$40</td><td class="action"><button class="mini-btn add-cart" data-id="fb-minutes-viewed" data-name="Facebook — 60k/600k minutes viewed" data-price="40">Add to cart</button></td></tr>
+          <tr><td class="item">TikTok — 10,000 followers</td><td class="amt">$110</td><td class="action"><button class="mini-btn add-cart" data-id="tt-10k-followers" data-name="TikTok — 10,000 followers" data-price="110">Add to cart</button></td></tr>
+          <tr><td class="item">TikTok — 100,000 views</td><td class="amt">$25</td><td class="action"><button class="mini-btn add-cart" data-id="tt-100k-views" data-name="TikTok — 100,000 views" data-price="25">Add to cart</button></td></tr>
+          <tr><td class="item">Instagram — 1,000 followers</td><td class="amt">$9</td><td class="action"><button class="mini-btn add-cart" data-id="ig-1k-followers" data-name="Instagram — 1,000 followers" data-price="9">Add to cart</button></td></tr>
+        </table>
+        <div class="pricing-note">All growth work is delivered by our team consuming real content — <b>no bots, no fake panels.</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING: TIKTOK SHOP ============ -->
+  <section id="pricing-shop" class="pricing-section">
+    <div class="wrap">
+      <div class="pricing-block">
+        <div class="pricing-block-head">
+          <div>
+            <h3>03 · TikTok Shop Setup</h3>
+            <p>Live call, step-by-step guided setup — you're never handed a PDF and left alone.</p>
+          </div>
+        </div>
+        <table class="price-table">
+          <tr>
+            <td class="item">Seller setup — sourced products, live guided call</td>
+            <td class="amt">$299</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="shop-seller-setup" data-name="TikTok Shop — Seller setup (guided call)" data-price="299">Add to cart</button></td>
+          </tr>
+          <tr>
+            <td class="item">Creator setup — Creator Reward Program, live guided call</td>
+            <td class="amt">$199</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="shop-creator-setup" data-name="TikTok Shop — Creator setup (guided call)" data-price="199">Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section-head" style="margin-top:48px;">
+        <div class="eyebrow">How the setup call works</div>
+        <h2 style="font-size:24px;">Three steps, one call</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="n">01</span>
+          <h3>Book your slot</h3>
+          <p>Message us on WhatsApp and we schedule your live setup call.</p>
+        </div>
+        <div class="step">
+          <span class="n">02</span>
+          <h3>We set up together</h3>
+          <p>Screen-share guided setup — account, verification, and product or Creator Program enrollment.</p>
+        </div>
+        <div class="step">
+          <span class="n">03</span>
+          <h3>You start selling / earning</h3>
+          <p>You leave the call live and ready, with our team available for follow-up questions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING: MONETIZED ACCOUNTS ============ -->
+  <section id="pricing-accounts" class="pricing-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">04 · Monetized Account Sales</div>
+        <h2>Ready-to-use, already-monetized accounts</h2>
+        <p>Built by our own team, sold with a guaranty. Priced per account based on platform and follower/subscriber count — starting around <b style="color:var(--gold)">$85</b>.</p>
+      </div>
+      <div class="inventory-box">
+        <div class="eyebrow" style="justify-content:center;">Inventory</div>
+        <p>Available accounts change often. We post current channel details — platform, size, niche, and price — as they become available. Message us on WhatsApp for today's list.</p>
+        <a class="btn btn-whatsapp" href="https://wa.me/1XXXXXXXXXX?text=Hi%2C%20what%20monetized%20accounts%20do%20you%20have%20available%20right%20now%3F" target="_blank" rel="noopener">Ask what's available</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING: JARVIS ============ -->
+  <section id="pricing-jarvis" class="pricing-section">
+    <div class="wrap">
+      <div class="pricing-block">
+        <div class="pricing-block-head">
+          <div>
+            <h3>05 · Automated PC / "Jarvis" Build</h3>
+            <p>The personal automation system that handles repetitive work for you.</p>
+          </div>
+        </div>
+        <table class="price-table">
+          <tr>
+            <td class="item">Jarvis automation build</td>
+            <td class="amt">$99</td>
+            <td class="action"><button class="mini-btn add-cart" data-id="jarvis-build" data-name="Automated PC / Jarvis build" data-price="99">Add to cart</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="eyebrow">Ready when you are</div>
+        <h2>Tell us what you're trying to grow.</h2>
+        <p>Message us on WhatsApp for the fastest reply, or add a service to your cart to pay online.</p>
+        <div class="contact-ctas">
+          <a class="btn btn-whatsapp" href="https://wa.me/1XXXXXXXXXX?text=Hi%20Social%20Media%20Globe%2C%20I%27d%20like%20to%20get%20started" target="_blank" rel="noopener">Message on WhatsApp</a>
+          <button class="btn btn-primary" id="contact-open-cart">Open Cart &amp; Pay</button>
+          <a class="btn btn-ghost" href="account.html">My Account</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-row"><span>WhatsApp</span><span id="footer-wa-number">+1 (XXX) XXX-XXXX</span></div>
+        <div class="contact-row"><span>Email</span><span><a href="mailto:info@socialmediaglobe.net">info@socialmediaglobe.net</a></span></div>
+        <div class="contact-row"><span>Hours</span><span>Mon–Sat, global time zones</span></div>
+        <div class="contact-row"><span>Policies</span><span><a href="policies.html">Terms &amp; Refunds</a></span></div>
+        <div class="contact-row social-row">
+          <span>Follow us</span>
+          <span class="social-icons">
+            <a href="#" id="social-facebook" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+            <a href="#" id="social-instagram" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+            <a href="#" id="social-youtube" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+            <a href="#" id="social-tiktok" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3>Your order</h3>
+    <button class="cart-close" id="cart-close" aria-label="Close cart">✕</button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty" id="cart-empty">Your cart is empty. Add a service to get started.</p>
+  </div>
+
+  <div class="cart-footer" id="cart-footer" hidden>
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0</span>
+    </div>
+
+    <!-- Shown when nobody is logged in yet -->
+    <div id="cart-auth-required">
+      <p class="cart-hint" style="margin-top:0;">Sign in (or create a free account) to check out — this is also how you'll see your order status afterward.</p>
+      <button class="btn btn-primary cart-full" id="cart-open-auth">Sign In / Create Account</button>
+    </div>
+
+    <!-- Shown once logged in -->
+    <div id="cart-checkout-options" hidden>
+      <div id="paypal-button-container"></div>
+      <button class="btn btn-ghost cart-full" id="cart-pay-stripe">Pay with Stripe</button>
+      <a class="btn btn-whatsapp cart-full" id="cart-pay-whatsapp" href="#" target="_blank" rel="noopener">Send order via WhatsApp</a>
+      <p class="cart-hint">Paying with PayPal or Stripe automatically creates your order in "My Account." WhatsApp is a manual backup — send it in addition to paying, not instead of.</p>
+    </div>
+  </div>
+</aside>
+
+<!-- ============ AUTH MODAL (sign in / sign up) ============ -->
+<div class="auth-overlay" id="auth-overlay"></div>
+<div class="auth-modal" id="auth-modal" aria-hidden="true">
+  <button class="cart-close" id="auth-close" aria-label="Close">✕</button>
+
+  <div class="auth-tabs">
+    <button class="auth-tab active" id="auth-tab-signin" data-tab="signin">Sign In</button>
+    <button class="auth-tab" id="auth-tab-signup" data-tab="signup">Create Account</button>
+  </div>
+
+  <form id="auth-form-signin" class="auth-form">
+    <label>Email<input type="email" id="signin-email" required></label>
+    <label>Password<input type="password" id="signin-password" required></label>
+    <button type="submit" class="btn btn-primary cart-full">Sign In</button>
+    <p class="auth-error" id="signin-error"></p>
+  </form>
+
+  <form id="auth-form-signup" class="auth-form" hidden>
+    <label>Email<input type="email" id="signup-email" required></label>
+    <label>Phone (best number to reach you)<input type="tel" id="signup-phone" required></label>
+    <label>Password (6+ characters)<input type="password" id="signup-password" minlength="6" required></label>
+    <button type="submit" class="btn btn-primary cart-full">Create Account</button>
+    <p class="auth-error" id="signup-error"></p>
+    <p class="auth-note" id="signup-success" hidden>Check your email to confirm your account, then sign in.</p>
+  </form>
+</div>
+
+<footer class="wrap">
+  <span>© <span id="year"></span> Social Media Globe</span>
+  <span>socialmediaglobe.net</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=BAAJuqe91Vk1JbmTs7cDDaQ3--Sl0E71l_fl5yXnIQU_I8ckfMpgcVoJ439qGv5j2wRkSGFz0bMa181v_M&components=buttons&currency=USD"></script>
+<script src="supabase-app.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

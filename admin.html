@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Social Media Globe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="logo/logo-icon.svg">
+<link rel="apple-touch-icon" href="logo/social/profile-picture.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .admin-wrap{ max-width: 980px; margin: 0 auto; padding: 64px 24px 100px; }
+  .admin-table{ width:100%; border-collapse: collapse; margin-top: 20px; }
+  .admin-table th{
+    text-align:left; font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--text-mute); padding: 10px 12px; border-bottom: 1px solid var(--line);
+  }
+  .admin-table td{ padding: 14px 12px; border-bottom: 1px solid var(--ink-panel-2); font-size: 13.5px; vertical-align: top; }
+  .admin-table select{
+    background: var(--ink-panel); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 8px; font-family: var(--body); font-size: 13px;
+  }
+  .admin-items{ font-size: 12.5px; color: var(--text-mute); }
+  .admin-contact{ font-family: var(--mono); font-size: 12px; color: var(--teal); }
+  .admin-denied, .admin-loading{ text-align:center; color: var(--text-mute); padding: 60px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="logo/logo-icon.svg" alt="" class="brand-mark"> Social Media Globe</a>
+    <nav class="nav-links nav-links-simple">
+      <a href="account.html">My Account</a>
+      <a href="index.html">Site</a>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-wrap">
+  <div class="eyebrow">Admin</div>
+  <h2>All orders</h2>
+
+  <div id="admin-loading" class="admin-loading">Checking access…</div>
+  <div id="admin-denied" class="admin-denied" hidden>
+    This page is only visible to the Social Media Globe admin account.
+    <br><a href="account.html" class="btn btn-ghost" style="margin-top:16px;">Go to My Account</a>
+  </div>
+
+  <table class="admin-table" id="admin-table" hidden>
+    <thead>
+      <tr>
+        <th>Order</th>
+        <th>Contact</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Method</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="admin-table-body"></tbody>
+  </table>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-app.js"></script>
+<script>
+async function loadAdmin(){
+  const session = await smgGetSession();
+  if (!session) {
+    document.getElementById("admin-loading").hidden = true;
+    document.getElementById("admin-denied").hidden = false;
+    return;
+  }
+
+  const profile = await smgGetProfile();
+  if (!profile || profile.role !== "admin") {
+    document.getElementById("admin-loading").hidden = true;
+    document.getElementById("admin-denied").hidden = false;
+    return;
+  }
+
+  const { data: orders, error } = await sb
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  document.getElementById("admin-loading").hidden = true;
+
+  if (error) {
+    document.getElementById("admin-denied").hidden = false;
+    document.getElementById("admin-denied").textContent = "Couldn't load orders: " + error.message;
+    return;
+  }
+
+  document.getElementById("admin-table").hidden = false;
+  const body = document.getElementById("admin-table-body");
+
+  body.innerHTML = (orders || []).map(o => `
+    <tr data-id="${o.id}">
+      <td>
+        <div style="color:var(--gold); font-family:var(--mono);">${o.order_number}</div>
+        <div style="color:var(--text-mute); font-size:11px;">${new Date(o.created_at).toLocaleString()}</div>
+      </td>
+      <td>
+        <div class="admin-contact">${o.contact_email}</div>
+        <div class="admin-contact">${o.contact_phone || "—"}</div>
+      </td>
+      <td class="admin-items">${o.items.map(i => `${i.qty}× ${i.name}`).join("<br>")}</td>
+      <td>$${Number(o.total).toLocaleString("en-US")}</td>
+      <td style="text-transform:capitalize;">${o.payment_method}</td>
+      <td>
+        <select data-id="${o.id}" class="status-select">
+          <option value="ordered" ${o.status==="ordered"?"selected":""}>Ordered</option>
+          <option value="in_progress" ${o.status==="in_progress"?"selected":""}>In Progress</option>
+          <option value="completed" ${o.status==="completed"?"selected":""}>Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join("");
+
+  document.querySelectorAll(".status-select").forEach(sel => {
+    sel.addEventListener("change", async () => {
+      const id = sel.dataset.id;
+      const status = sel.value;
+      const { error } = await sb.from("orders").update({ status }).eq("id", id);
+      if (error) alert("Couldn't update status: " + error.message);
+    });
+  });
+}
+
+loadAdmin();
+</script>
+</body>
+</html>
