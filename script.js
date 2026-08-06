@@ -321,19 +321,49 @@ let paypalRendered = false;
 function renderPaypalButton(){
   const container = document.getElementById("paypal-button-container");
   if (!container || typeof paypal === "undefined") return;
-  if (paypalRendered) return; // paypal buttons re-render on their own via createOrder
+  if (paypalRendered) return;
   paypalRendered = true;
 
   paypal.Buttons({
     style: { color: "gold", shape: "pill", label: "paypal", height: 45 },
-    createOrder: (data, actions) => {
-      return actions.order.create({
-        purchase_units: [{ amount: { value: cartTotal().toFixed(2), currency_code: "USD" } }],
+    createOrder: async () => {
+      const res = await fetch(`${FUNCTIONS_URL}/paypal-create-order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ total: cartTotal() }),
       });
+      const data = await res.json();
+      if (!data.id) throw new Error(data.error || "Could not start PayPal order");
+      return data.id;
     },
-    onApprove: async (data, actions) => {
-      await actions.order.capture();
-      await recordOrder("paypal");
+    onApprove: async (data) => {
+      const session = await smgGetSession();
+      const res = await fetch(`${FUNCTIONS_URL}/paypal-capture-order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          orderID: data.orderID,
+          items: cartItemsArray(),
+          email: session?.user?.email,
+          phone: session?.user?.user_metadata?.phone || "",
+          user_id: session?.user?.id,
+        }),
+      });
+      const result = await res.json();
+      if (!result.success) {
+        alert("Payment couldn't be confirmed — please message us on WhatsApp with your PayPal receipt so we can log it manually.");
+        console.error(result);
+        return;
+      }
+      clearCart();
+      closeCart();
+      alert(`Thank you! Your order ${result.order.order_number} is confirmed. You can track its status any time in "My Account."`);
     },
     onError: (err) => {
       alert("PayPal ran into an issue. Please try again, or use WhatsApp to complete your order.");
@@ -383,34 +413,6 @@ document.getElementById("cart-pay-stripe")?.addEventListener("click", async () =
     btn.textContent = "Pay with Stripe";
   }
 });
-
-// Writes the order row after a successful PayPal capture. (Stripe
-// orders are written by the stripe-webhook Edge Function instead,
-// since that only fires after Stripe itself confirms payment.)
-async function recordOrder(paymentMethod){
-  const session = await smgGetSession();
-  if (!session) return;
-
-  const { data, error } = await sb.from("orders").insert({
-    user_id: session.user.id,
-    contact_email: session.user.email,
-    contact_phone: session.user.user_metadata?.phone || "",
-    items: cartItemsArray(),
-    total: cartTotal(),
-    payment_method: paymentMethod,
-    status: "ordered",
-  }).select().single();
-
-  if (error) {
-    alert("Payment went through, but saving your order hit a snag. Please message us on WhatsApp with your payment confirmation so we can log it manually.");
-    console.error(error);
-    return;
-  }
-
-  clearCart();
-  closeCart();
-  alert(`Thank you! Your order ${data.order_number} is confirmed. You can track its status any time in "My Account."`);
-}
 
 // If we've just come back from a Stripe redirect, let the customer
 // know their order is being finalized (the webhook writes the actual

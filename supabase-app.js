@@ -10,9 +10,9 @@
 const SUPABASE_URL = "https://hwqulriicsgsaaadggoi.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable__XfRIXdLv2sQzgECOBoUHw_Vrg-Oq9B";
 
-// Your PayPal Hosted Buttons client-id (safe to be public — it only
+// Your PayPal Checkout app client-id (safe to be public — it only
 // identifies your app to PayPal, it can't move money by itself).
-const PAYPAL_CLIENT_ID = "BAAJuqe91Vk1JbmTs7cDDaQ3--Sl0E71l_fl5yXnIQU_I8ckfMpgcVoJ439qGv5j2wRkSGFz0bMa181v_M";
+const PAYPAL_CLIENT_ID = "BAANv1UyB4QZI-U0HQ1CmigRI0buta8ahHsrOxqLmtf9fWcBJEC7X81E59W01iOjDdOvN9Qm5MhEDJH1Y8";
 
 // Your WhatsApp number, already filled in.
 const WHATSAPP_NUMBER = "16816000916";

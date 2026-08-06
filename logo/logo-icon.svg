@@ -1,0 +1,24 @@
+<svg width="240" height="240" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Social Media Globe — icon mark
+       A globe built from two crossing orbit lines (meridians), with
+       node dots standing in for the real people/real work behind the
+       growth service, and one larger "live" node echoing the site's
+       live-activity feed. -->
+
+  <!-- outer globe -->
+  <circle cx="60" cy="60" r="42" fill="none" stroke="#E8A33D" stroke-width="4"/>
+
+  <!-- meridian orbits -->
+  <ellipse cx="60" cy="60" rx="42" ry="15" fill="none" stroke="#E8A33D" stroke-width="2.5" opacity="0.9"/>
+  <ellipse cx="60" cy="60" rx="15" ry="42" fill="none" stroke="#4FD1C5" stroke-width="2.5" opacity="0.9" transform="rotate(28 60 60)"/>
+
+  <!-- node dots (real people, real places) -->
+  <circle cx="60" cy="18" r="3" fill="#4FD1C5"/>
+  <circle cx="102" cy="60" r="3" fill="#E8A33D"/>
+  <circle cx="24" cy="80" r="3" fill="#4FD1C5"/>
+  <circle cx="35" cy="30" r="3" fill="#E8A33D"/>
+
+  <!-- signature "live" node (satellite, orbiting outside the globe) -->
+  <circle cx="100" cy="20" r="7" fill="none" stroke="#E8A33D" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="100" cy="20" r="4.5" fill="#E8A33D"/>
+</svg>

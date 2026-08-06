@@ -1,0 +1,20 @@
+<svg width="1000" height="1000" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Social Media Globe — profile picture.
+       Padded so the mark survives every platform's circular crop
+       (Facebook, Instagram, YouTube, TikTok all crop profile photos
+       to a circle). -->
+
+  <rect width="200" height="200" fill="#0B1220"/>
+
+  <g transform="translate(100,100) scale(1.05) translate(-60,-60)">
+    <circle cx="60" cy="60" r="42" fill="none" stroke="#E8A33D" stroke-width="4"/>
+    <ellipse cx="60" cy="60" rx="42" ry="15" fill="none" stroke="#E8A33D" stroke-width="2.5" opacity="0.9"/>
+    <ellipse cx="60" cy="60" rx="15" ry="42" fill="none" stroke="#4FD1C5" stroke-width="2.5" opacity="0.9" transform="rotate(28 60 60)"/>
+    <circle cx="60" cy="18" r="3" fill="#4FD1C5"/>
+    <circle cx="102" cy="60" r="3" fill="#E8A33D"/>
+    <circle cx="24" cy="80" r="3" fill="#4FD1C5"/>
+    <circle cx="35" cy="30" r="3" fill="#E8A33D"/>
+    <circle cx="100" cy="20" r="7" fill="none" stroke="#E8A33D" stroke-width="1.5" opacity="0.35"/>
+    <circle cx="100" cy="20" r="4.5" fill="#E8A33D"/>
+  </g>
+</svg>
