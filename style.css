@@ -113,6 +113,13 @@ h1,h2,h3{
 }
 .btn-whatsapp:hover{ border-color: #6FE38A; }
 
+.btn-card{
+  background: #1a2436;
+  color: var(--text);
+  border-color: var(--line);
+}
+.btn-card:hover{ border-color: var(--teal); color: var(--teal); }
+
 /* ---------------- Header ---------------- */
 header{
   position: sticky; top:0; z-index: 50;

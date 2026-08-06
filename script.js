@@ -316,22 +316,16 @@ async function refreshCheckoutAuthState(){
 }
 
 // ============================================================
-// PayPal checkout — your account isn't yet approved for PayPal's
-// automatic "Checkout" API, so this uses your working Payment Link
-// instead: shows the exact total to enter, then lets the customer
-// confirm once they've paid (which logs the order for you to verify
-// against your PayPal activity).
+// PayPal / Card checkout — your account isn't yet approved for
+// PayPal's automatic "Checkout" API, so both buttons open your
+// working Payment Link (which itself offers PayPal balance, cards,
+// and Apple Pay once there). Clicking either one also logs the
+// order right away, so nothing extra is needed after paying.
 // ============================================================
 
-document.getElementById("cart-confirm-paid")?.addEventListener("click", async () => {
+async function logPaypalStyleOrder(){
   const session = await smgGetSession();
-  if (!session) return;
-
-  if (Object.keys(cart).length === 0) return;
-
-  const btn = document.getElementById("cart-confirm-paid");
-  btn.disabled = true;
-  btn.textContent = "Logging your order...";
+  if (!session || Object.keys(cart).length === 0) return;
 
   const { data, error } = await sb.from("orders").insert({
     user_id: session.user.id,
@@ -343,19 +337,18 @@ document.getElementById("cart-confirm-paid")?.addEventListener("click", async ()
     status: "ordered",
   }).select().single();
 
-  btn.disabled = false;
-  btn.textContent = "I've Completed My PayPal Payment";
-
   if (error) {
-    alert("Couldn't log your order automatically — please send it via WhatsApp instead so we can confirm it manually.");
     console.error(error);
     return;
   }
 
   clearCart();
   closeCart();
-  alert(`Thanks! Your order ${data.order_number} has been logged as pending confirmation. We'll verify your PayPal payment and update the status in "My Account."`);
-});
+  alert(`Your order ${data.order_number} has been logged. We'll confirm your payment and update the status in "My Account" — sending it via WhatsApp too helps us start faster.`);
+}
+
+document.getElementById("cart-pay-paypal-link")?.addEventListener("click", logPaypalStyleOrder);
+document.getElementById("cart-pay-card-link")?.addEventListener("click", logPaypalStyleOrder);
 
 // ============================================================
 // Stripe checkout — calls the create-checkout-session Edge
