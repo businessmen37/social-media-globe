@@ -388,9 +388,11 @@
 
     <!-- Shown once logged in -->
     <div id="cart-checkout-options" hidden>
-      <div id="paypal-button-container"></div>
+      <a class="btn btn-primary cart-full" id="cart-pay-paypal-link" href="https://www.paypal.com/ncp/payment/VP4XA3LXERHGA" target="_blank" rel="noopener">Pay with PayPal</a>
+      <p class="cart-hint" style="margin-top:-4px;">Opens PayPal in a new tab. Enter your total, <b id="paypal-total-reminder">$0</b>, on PayPal's page.</p>
+      <button class="btn btn-ghost cart-full" id="cart-confirm-paid">I've Completed My PayPal Payment</button>
       <a class="btn btn-whatsapp cart-full" id="cart-pay-whatsapp" href="#" target="_blank" rel="noopener">Send order via WhatsApp</a>
-      <p class="cart-hint">Paying with PayPal automatically creates your order in "My Account." WhatsApp is a manual backup: send it in addition to paying, not instead of.</p>
+      <p class="cart-hint">Click "I've Completed My PayPal Payment" after paying to log your order in "My Account." Sending via WhatsApp too helps us confirm it faster.</p>
     </div>
   </div>
 </aside>
@@ -428,7 +430,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=BAANv1UyB4QZI-U0HQ1CmigRI0buta8ahHsrOxqLmtf9fWcBJEC7X81E59W01iOjDdOvN9Qm5MhEDJH1Y8&components=buttons&currency=USD"></script>
 <script src="supabase-app.js"></script>
 <script src="script.js"></script>
 </body>

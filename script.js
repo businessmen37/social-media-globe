@@ -314,63 +314,50 @@ async function refreshCheckoutAuthState(){
 }
 
 // ============================================================
-// PayPal checkout — dynamic total built from the live cart,
-// captured client-side, then written to the orders table.
+// PayPal checkout — your account isn't yet approved for PayPal's
+// automatic "Checkout" API, so this uses your working Payment Link
+// instead: shows the exact total to enter, then lets the customer
+// confirm once they've paid (which logs the order for you to verify
+// against your PayPal activity).
 // ============================================================
-let paypalRendered = false;
 function renderPaypalButton(){
-  const container = document.getElementById("paypal-button-container");
-  if (!container || typeof paypal === "undefined") return;
-  if (paypalRendered) return;
-  paypalRendered = true;
-
-  paypal.Buttons({
-    style: { color: "gold", shape: "pill", label: "paypal", height: 45 },
-    createOrder: async () => {
-      const res = await fetch(`${FUNCTIONS_URL}/paypal-create-order`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({ total: cartTotal() }),
-      });
-      const data = await res.json();
-      if (!data.id) throw new Error(data.error || "Could not start PayPal order");
-      return data.id;
-    },
-    onApprove: async (data) => {
-      const session = await smgGetSession();
-      const res = await fetch(`${FUNCTIONS_URL}/paypal-capture-order`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({
-          orderID: data.orderID,
-          items: cartItemsArray(),
-          email: session?.user?.email,
-          phone: session?.user?.user_metadata?.phone || "",
-          user_id: session?.user?.id,
-        }),
-      });
-      const result = await res.json();
-      if (!result.success) {
-        alert("Payment couldn't be confirmed — please message us on WhatsApp with your PayPal receipt so we can log it manually.");
-        console.error(result);
-        return;
-      }
-      clearCart();
-      closeCart();
-      alert(`Thank you! Your order ${result.order.order_number} is confirmed. You can track its status any time in "My Account."`);
-    },
-    onError: (err) => {
-      alert("PayPal ran into an issue. Please try again, or use WhatsApp to complete your order.");
-      console.error(err);
-    },
-  }).render("#paypal-button-container");
+  const reminder = document.getElementById("paypal-total-reminder");
+  if (reminder) reminder.textContent = formatMoney(cartTotal());
 }
+
+document.getElementById("cart-confirm-paid")?.addEventListener("click", async () => {
+  const session = await smgGetSession();
+  if (!session) return;
+
+  if (Object.keys(cart).length === 0) return;
+
+  const btn = document.getElementById("cart-confirm-paid");
+  btn.disabled = true;
+  btn.textContent = "Logging your order...";
+
+  const { data, error } = await sb.from("orders").insert({
+    user_id: session.user.id,
+    contact_email: session.user.email,
+    contact_phone: session.user.user_metadata?.phone || "",
+    items: cartItemsArray(),
+    total: cartTotal(),
+    payment_method: "paypal",
+    status: "ordered",
+  }).select().single();
+
+  btn.disabled = false;
+  btn.textContent = "I've Completed My PayPal Payment";
+
+  if (error) {
+    alert("Couldn't log your order automatically — please send it via WhatsApp instead so we can confirm it manually.");
+    console.error(error);
+    return;
+  }
+
+  clearCart();
+  closeCart();
+  alert(`Thanks! Your order ${data.order_number} has been logged as pending confirmation. We'll verify your PayPal payment and update the status in "My Account."`);
+});
 
 // ============================================================
 // Stripe checkout — calls the create-checkout-session Edge
