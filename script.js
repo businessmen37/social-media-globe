@@ -191,8 +191,6 @@ function renderCart(){
 
   const paypalReminder = document.getElementById("paypal-total-reminder");
   if (paypalReminder) paypalReminder.textContent = formatMoney(cartTotal());
-  if (typeof updatePaypalLinks === "function") updatePaypalLinks();
-
   refreshCheckoutAuthState();
 }
 
@@ -317,11 +315,11 @@ async function refreshCheckoutAuthState(){
 }
 
 // ============================================================
-// PayPal / Card checkout — your account isn't yet approved for
-// PayPal's automatic "Checkout" API, so both buttons open your
-// working Payment Link (which itself offers PayPal balance, cards,
-// and Apple Pay once there). Clicking either one also logs the
-// order right away, so nothing extra is needed after paying.
+// PayPal checkout — your account isn't yet approved for PayPal's
+// automatic "Checkout" API, so this opens your working Payment
+// Link, which itself offers a choice of PayPal, card, or Apple
+// Pay right there. Clicking also logs the order right away, so
+// nothing extra is needed after paying.
 // ============================================================
 
 async function logPaypalStyleOrder(){
@@ -349,38 +347,7 @@ async function logPaypalStyleOrder(){
 }
 
 // Builds a PayPal link with the cart total already filled in, using
-// PayPal's classic "Buy Now" redirect format — this is the one
-// PayPal's own documentation confirms supports a pre-set amount via
-// URL, unlike the newer Payment Links product we were using before.
-function buildPaypalAmountUrl(){
-  const itemNames = Object.values(cart).map(i => `${i.qty}x ${i.name}`).join(", ").slice(0, 120);
-  const params = new URLSearchParams({
-    cmd: "_xclick",
-    business: "business@goldlifefitness.com",
-    item_name: itemNames || "Social Media Globe order",
-    amount: cartTotal().toFixed(2),
-    currency_code: "USD",
-    no_shipping: "1",
-  });
-  return `https://www.paypal.com/cgi-bin/webscr?${params.toString()}`;
-}
-
-function updatePaypalLinks(){
-  const url = buildPaypalAmountUrl();
-  const paypalLink = document.getElementById("cart-pay-paypal-link");
-  const cardLink = document.getElementById("cart-pay-card-link");
-  if (paypalLink) paypalLink.href = url;
-  if (cardLink) cardLink.href = url;
-}
-
-document.getElementById("cart-pay-paypal-link")?.addEventListener("click", () => {
-  updatePaypalLinks();
-  logPaypalStyleOrder();
-});
-document.getElementById("cart-pay-card-link")?.addEventListener("click", () => {
-  updatePaypalLinks();
-  logPaypalStyleOrder();
-});
+document.getElementById("cart-pay-paypal-link")?.addEventListener("click", logPaypalStyleOrder);
 
 // ============================================================
 // Stripe checkout — calls the create-checkout-session Edge
