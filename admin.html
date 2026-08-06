@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Social Media Globe</title>
+<title>Admin | Social Media Globe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -106,7 +106,7 @@ async function loadAdmin(){
       </td>
       <td>
         <div class="admin-contact">${o.contact_email}</div>
-        <div class="admin-contact">${o.contact_phone || "—"}</div>
+        <div class="admin-contact">${o.contact_phone || "Not provided"}</div>
       </td>
       <td class="admin-items">${o.items.map(i => `${i.qty}× ${i.name}`).join("<br>")}</td>
       <td>$${Number(o.total).toLocaleString("en-US")}</td>

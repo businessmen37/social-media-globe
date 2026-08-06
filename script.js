@@ -132,7 +132,7 @@ function cartItemsArray(){
 }
 
 function buildOrderSummaryText(){
-  const lines = Object.values(cart).map(item => `• ${item.name} x${item.qty} — ${formatMoney(item.price * item.qty)}`);
+  const lines = Object.values(cart).map(item => `• ${item.name} x${item.qty}: ${formatMoney(item.price * item.qty)}`);
   lines.push("", `Total: ${formatMoney(cartTotal())}`);
   return lines.join("\n");
 }
@@ -150,7 +150,7 @@ function renderCart(){
   document.querySelectorAll(".add-cart").forEach(btn => {
     const id = btn.dataset.id;
     if (cart[id]) {
-      btn.textContent = `In cart (${cart[id].qty}) — add another`;
+      btn.textContent = `In cart (${cart[id].qty}), add another`;
       btn.classList.add("in-cart");
     } else {
       btn.textContent = "Add to cart";
@@ -336,7 +336,7 @@ function renderPaypalButton(){
       await recordOrder("paypal");
     },
     onError: (err) => {
-      alert("PayPal ran into an issue — please try again, or use WhatsApp to complete your order.");
+      alert("PayPal ran into an issue. Please try again, or use WhatsApp to complete your order.");
       console.error(err);
     },
   }).render("#paypal-button-container");
@@ -377,7 +377,7 @@ document.getElementById("cart-pay-stripe")?.addEventListener("click", async () =
       throw new Error(data.error || "Could not start Stripe checkout");
     }
   } catch (err) {
-    alert("Stripe checkout couldn't start — please try again, or use WhatsApp to complete your order.");
+    alert("Stripe checkout couldn't start. Please try again, or use WhatsApp to complete your order.");
     console.error(err);
     btn.disabled = false;
     btn.textContent = "Pay with Stripe";
@@ -402,7 +402,7 @@ async function recordOrder(paymentMethod){
   }).select().single();
 
   if (error) {
-    alert("Payment went through, but saving your order hit a snag — please message us on WhatsApp with your payment confirmation so we can log it manually.");
+    alert("Payment went through, but saving your order hit a snag. Please message us on WhatsApp with your payment confirmation so we can log it manually.");
     console.error(error);
     return;
   }
@@ -421,7 +421,7 @@ if (params.get("checkout") === "success") {
   alert("Payment received! Your order is being confirmed and will appear in \"My Account\" shortly.");
 }
 if (params.get("checkout") === "cancel") {
-  alert("Checkout was canceled — your cart is still saved, nothing was charged.");
+  alert("Checkout was canceled. Your cart is still saved, nothing was charged.");
 }
 
 renderCart();
