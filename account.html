@@ -99,9 +99,7 @@
       <p class="account-empty">Loading your orders…</p>
     </div>
 
-    <p style="margin-top:30px;">
-      <a id="account-admin-link" href="admin.html" class="btn btn-ghost" hidden>Open Admin Dashboard →</a>
-    </p>
+    <p style="margin-top:30px;"></p>
   </section>
 
 </main>
@@ -178,10 +176,6 @@ async function loadAccount(){
   document.getElementById("account-greeting").textContent = `Welcome back${profile?.email ? ", " + profile.email.split("@")[0] : ""}`;
   document.getElementById("account-email").textContent = session.user.email;
   document.getElementById("account-phone").textContent = profile?.phone || "Not provided";
-
-  if (profile?.role === "admin") {
-    document.getElementById("account-admin-link").hidden = false;
-  }
 
   const { data: orders, error } = await sb
     .from("orders")
