@@ -572,3 +572,7 @@ footer a:hover{ color: var(--text); }
 .auth-note{ color:#6FE38A; font-size:12.5px; margin:0; }
 
 #paypal-button-container{ margin-bottom: 10px; min-height: 45px; }
+.paypal-cards-badge{
+  display:block; margin: 8px auto 4px; max-width: 220px;
+  background: #F1EFEA; border-radius: 10px; padding: 6px 10px;
+}

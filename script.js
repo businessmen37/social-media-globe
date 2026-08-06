@@ -189,6 +189,9 @@ function renderCart(){
   footerEl.hidden = false;
   totalEl.textContent = formatMoney(cartTotal());
 
+  const paypalReminder = document.getElementById("paypal-total-reminder");
+  if (paypalReminder) paypalReminder.textContent = formatMoney(cartTotal());
+
   refreshCheckoutAuthState();
 }
 
@@ -306,7 +309,6 @@ async function refreshCheckoutAuthState(){
   if (session) {
     authRequiredEl.hidden = true;
     checkoutOptionsEl.hidden = false;
-    renderPaypalButton();
   } else {
     authRequiredEl.hidden = false;
     checkoutOptionsEl.hidden = true;
@@ -320,10 +322,6 @@ async function refreshCheckoutAuthState(){
 // confirm once they've paid (which logs the order for you to verify
 // against your PayPal activity).
 // ============================================================
-function renderPaypalButton(){
-  const reminder = document.getElementById("paypal-total-reminder");
-  if (reminder) reminder.textContent = formatMoney(cartTotal());
-}
 
 document.getElementById("cart-confirm-paid")?.addEventListener("click", async () => {
   const session = await smgGetSession();
