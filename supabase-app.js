@@ -12,7 +12,7 @@ const SUPABASE_ANON_KEY = "sb_publishable__XfRIXdLv2sQzgECOBoUHw_Vrg-Oq9B";
 
 // Your PayPal Checkout app client-id (safe to be public — it only
 // identifies your app to PayPal, it can't move money by itself).
-const PAYPAL_CLIENT_ID = "BAANv1UyB4QZI-U0HQ1CmigRI0buta8ahHsrOxqLmtf9fWcBJEC7X81E59W01iOjDdOvN9Qm5MhEDJH1Y8";
+const PAYPAL_CLIENT_ID = "BAANv1UyB4QZl-U0HQ1CmigRI0buta8ahHsrOxqLmtf9fWcBJEC7X81E59W01iOjDdOvN9Qm5MhEDJH1Y8";
 
 // Your WhatsApp number, already filled in.
 const WHATSAPP_NUMBER = "16816000916";
