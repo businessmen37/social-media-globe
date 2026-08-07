@@ -387,7 +387,7 @@ document.getElementById("cart-pay-stripe")?.addEventListener("click", async () =
     alert("Stripe checkout couldn't start. Please try again, or use WhatsApp to complete your order.");
     console.error(err);
     btn.disabled = false;
-    btn.textContent = "Pay with Stripe";
+    btn.textContent = "Pay Now — Exact Total, One Click";
   }
 });
 
