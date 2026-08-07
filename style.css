@@ -570,7 +570,7 @@ footer a:hover{ color: var(--text); }
 }
 .cart-total-row span:last-child{ color: var(--gold); }
 .cart-full{ width:100%; justify-content:center; margin-bottom:10px; }
-.cart-hint{ font-size: 11.5px; color: var(--text-mute); margin: 10px 0 0; line-height:1.5; }
+.cart-hint{ font-size: 11.5px; color: var(--text-mute); margin: 10px 0 0; line-height:1.5; text-align:center; }
 
 /* ---------------- Auth modal ---------------- */
 .auth-overlay{
