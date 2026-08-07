@@ -153,10 +153,17 @@ header{
 }
 .nav-links a{ white-space: nowrap; }
 .nav-links a:hover{ color: var(--text); }
-.nav-cta{ display:flex; gap:10px; white-space:nowrap; }
 .nav-menu-whatsapp{ display:none; }
 
 .nav-toggle{ display:none; }
+
+/* Desktop/tablet: pull the cart button visually next to WhatsApp Us
+   as a tight button pair, rather than letting space-between spread
+   them apart from the nav links. Simple fixed offset, not dependent
+   on any flex free-space math. */
+@media (min-width: 861px){
+  .btn-cart{ margin-left: -14px; }
+}
 
 @media (max-width: 860px){
   .nav-links{ display:none; }
@@ -167,28 +174,21 @@ header{
   }
 }
 
-/* Phone-width header: WhatsApp Us, cart, and the menu button all stay
-   on one line with the full label kept, by truncating the brand name
-   and tightening gaps rather than shrinking the WhatsApp text.
-   nav-cta is flattened to display:contents here so all four elements
-   (logo, WhatsApp, cart, menu) are direct flex children of .nav and
-   get genuinely equal spacing from justify-content:space-between,
-   instead of WhatsApp+cart being clumped together as a sub-group. */
+/* Phone-width header: brand, WhatsApp Us, cart, and menu are direct
+   flex children of .nav (no wrapper div), so space-between gives
+   mathematically equal gaps between every element. The brand's text
+   is hidden here, icon only, so nothing gets awkwardly truncated. */
 @media (max-width: 480px){
   .nav{ padding-top: 12px; padding-bottom: 12px; }
-  .brand{
-    font-size: 14px; gap: 6px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 100px;
+  .brand{ gap: 0; }
+  .brand-text{ display:none; }
+  .brand .brand-mark{ width: 30px; height: 30px; }
+  .nav-whatsapp{
+    padding: 8px 12px;
+    font-size: 13px;
   }
-  .brand .brand-mark{ width: 24px; height: 24px; }
-  .nav-cta{ display:contents; }
-  .nav-cta .btn-whatsapp{
-    padding: 7px 9px;
-    font-size: 12px;
-  }
-  .btn-cart{ padding: 7px 8px; font-size: 13px; }
-  .nav-toggle{ padding: 7px 8px; }
+  .btn-cart{ padding: 8px 10px; font-size: 15px; }
+  .nav-toggle{ padding: 8px 9px; }
   .nav-menu-whatsapp{ display:none; }
 }
 
