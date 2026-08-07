@@ -134,7 +134,7 @@ header{
 }
 .nav{
   display:flex; align-items:center; justify-content:space-between;
-  padding: 16px 0;
+  padding-top: 16px; padding-bottom: 16px;
 }
 .brand{
   display:flex; align-items:center; gap:12px;
@@ -169,16 +169,20 @@ header{
 
 /* Phone-width header: WhatsApp Us, cart, and the menu button all stay
    on one line with the full label kept, by truncating the brand name
-   and tightening gaps rather than shrinking the WhatsApp text. */
+   and tightening gaps rather than shrinking the WhatsApp text.
+   nav-cta is flattened to display:contents here so all four elements
+   (logo, WhatsApp, cart, menu) are direct flex children of .nav and
+   get genuinely equal spacing from justify-content:space-between,
+   instead of WhatsApp+cart being clumped together as a sub-group. */
 @media (max-width: 480px){
-  .nav{ padding: 12px 0; gap: 8px; }
+  .nav{ padding-top: 12px; padding-bottom: 12px; }
   .brand{
     font-size: 14px; gap: 6px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 108px;
+    max-width: 100px;
   }
   .brand .brand-mark{ width: 24px; height: 24px; }
-  .nav-cta{ gap: 5px; }
+  .nav-cta{ display:contents; }
   .nav-cta .btn-whatsapp{
     padding: 7px 9px;
     font-size: 12px;
