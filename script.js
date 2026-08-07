@@ -315,39 +315,11 @@ async function refreshCheckoutAuthState(){
 }
 
 // ============================================================
-// PayPal checkout — your account isn't yet approved for PayPal's
-// automatic "Checkout" API, so this opens your working Payment
-// Link, which itself offers a choice of PayPal, card, or Apple
-// Pay right there. Clicking also logs the order right away, so
-// nothing extra is needed after paying.
+// PayPal is no longer offered as a separate button. Stripe (below)
+// only ever writes an order after real payment is confirmed via
+// webhook, and WhatsApp never writes an order at all, so there is
+// no more path that can log an order before it's actually paid.
 // ============================================================
-
-async function logPaypalStyleOrder(){
-  const session = await smgGetSession();
-  if (!session || Object.keys(cart).length === 0) return;
-
-  const { data, error } = await sb.from("orders").insert({
-    user_id: session.user.id,
-    contact_email: session.user.email,
-    contact_phone: session.user.user_metadata?.phone || "",
-    items: cartItemsArray(),
-    total: cartTotal(),
-    payment_method: "paypal",
-    status: "ordered",
-  }).select().single();
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  clearCart();
-  closeCart();
-  alert(`Your order ${data.order_number} has been logged. We'll confirm your payment and update the status in "My Account." Sending it via WhatsApp too helps us start faster.`);
-}
-
-// Builds a PayPal link with the cart total already filled in, using
-document.getElementById("cart-pay-paypal-link")?.addEventListener("click", logPaypalStyleOrder);
 
 // ============================================================
 // Stripe checkout — calls the create-checkout-session Edge

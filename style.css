@@ -167,16 +167,30 @@ header{
   }
 }
 
-/* Phone-width header: shrink the brand, drop the WhatsApp pill from the
-   cramped top bar (it's reachable from the menu instead), keep the row
-   on one line. */
+/* Phone-width header: shrink the brand and WhatsApp pill so all four
+   elements (logo, cart, WhatsApp, menu) fit on one line with real
+   breathing room from the screen edges. */
+.nav-cta .btn-whatsapp .nav-wa-short{ display:none; }
+
 @media (max-width: 480px){
-  .nav{ padding: 12px 0; }
-  .brand{ font-size: 16px; gap: 9px; }
-  .brand .brand-mark{ width: 30px; height: 30px; }
-  .nav-cta .btn-whatsapp{ display:none; }
-  .btn-cart{ padding: 8px 11px; font-size: 15px; }
-  .nav-menu-whatsapp{ display:inline-flex; margin-top: 6px; }
+  .wrap{ padding: 0 20px; }
+  .nav{ padding: 12px 0; gap: 8px; }
+  .brand{
+    font-size: 15px; gap: 8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 130px;
+  }
+  .brand .brand-mark{ width: 28px; height: 28px; }
+  .nav-cta{ gap: 6px; }
+  .nav-cta .btn-whatsapp{
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .nav-cta .btn-whatsapp .nav-wa-full{ display:none; }
+  .nav-cta .btn-whatsapp .nav-wa-short{ display:inline; }
+  .btn-cart{ padding: 8px 10px; font-size: 15px; }
+  .nav-toggle{ padding: 8px 9px; }
+  .nav-menu-whatsapp{ display:none; }
 }
 
 /* ---------------- Hero ---------------- */
