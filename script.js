@@ -343,7 +343,7 @@ async function logPaypalStyleOrder(){
 
   clearCart();
   closeCart();
-  alert(`Your order ${data.order_number} has been logged. We'll confirm your payment and update the status in "My Account" — sending it via WhatsApp too helps us start faster.`);
+  alert(`Your order ${data.order_number} has been logged. We'll confirm your payment and update the status in "My Account." Sending it via WhatsApp too helps us start faster.`);
 }
 
 // Builds a PayPal link with the cart total already filled in, using
@@ -387,7 +387,7 @@ document.getElementById("cart-pay-stripe")?.addEventListener("click", async () =
     alert("Stripe checkout couldn't start. Please try again, or use WhatsApp to complete your order.");
     console.error(err);
     btn.disabled = false;
-    btn.textContent = "Pay Now — Exact Total, One Click";
+    btn.textContent = "Pay Now, Exact Total, One Click";
   }
 });
 
