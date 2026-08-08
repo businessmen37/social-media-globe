@@ -20,10 +20,10 @@ const WHATSAPP_NUMBER = "16816000916";
 // Your social media profile URLs — paste real links in when you have
 // them, leave "#" to hide/skip one for now.
 const SOCIAL_LINKS = {
-  facebook: "https://www.facebook.com/profile.php?id=61588999744707",
-  instagram: "#",
+  facebook: "https://www.facebook.com/people/Socialmediaglobe/61588999744707/",
+  instagram: "https://www.instagram.com/socialmediaglobe1",
   youtube: "https://www.youtube.com/@socialmediaglobe",
-  tiktok: "#",
+  tiktok: "https://www.tiktok.com/@socialmediaglobe1",
 };
 
 // The Edge Function base URL (same project, different path).
