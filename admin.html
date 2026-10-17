@@ -1,140 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | Social Media Globe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16.png">
-<link rel="icon" type="image/svg+xml" href="logo/favicon-source.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="logo/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css">
-<style>
-  .admin-wrap{ max-width: 980px; margin: 0 auto; padding: 64px 24px 100px; }
-  .admin-table{ width:100%; border-collapse: collapse; margin-top: 20px; }
-  .admin-table th{
-    text-align:left; font-family: var(--mono); font-size: 11px; text-transform: uppercase;
-    letter-spacing: .06em; color: var(--text-mute); padding: 10px 12px; border-bottom: 1px solid var(--line);
-  }
-  .admin-table td{ padding: 14px 12px; border-bottom: 1px solid var(--ink-panel-2); font-size: 13.5px; vertical-align: top; }
-  .admin-table select{
-    background: var(--ink-panel); color: var(--text); border: 1px solid var(--line);
-    border-radius: 6px; padding: 6px 8px; font-family: var(--body); font-size: 13px;
-  }
-  .admin-items{ font-size: 12.5px; color: var(--text-mute); }
-  .admin-contact{ font-family: var(--mono); font-size: 12px; color: var(--teal); }
-  .admin-denied, .admin-loading{ text-align:center; color: var(--text-mute); padding: 60px 0; }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="wrap nav">
-    <a href="index.html" class="brand"><img src="logo/logo-icon.svg" alt="" class="brand-mark"> Social Media Globe</a>
-    <nav class="nav-links nav-links-simple">
-      <a href="account.html">My Account</a>
-      <a href="index.html">Site</a>
-    </nav>
-  </div>
-</header>
-
-<main class="admin-wrap">
-  <div class="eyebrow">Admin</div>
-  <h2>All orders</h2>
-
-  <div id="admin-loading" class="admin-loading">Checking access…</div>
-  <div id="admin-denied" class="admin-denied" hidden>
-    This page is only visible to the Social Media Globe admin account.
-    <br><a href="account.html" class="btn btn-ghost" style="margin-top:16px;">Go to My Account</a>
-  </div>
-
-  <table class="admin-table" id="admin-table" hidden>
-    <thead>
-      <tr>
-        <th>Order</th>
-        <th>Contact</th>
-        <th>Items</th>
-        <th>Total</th>
-        <th>Method</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="admin-table-body"></tbody>
-  </table>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-app.js"></script>
-<script>
-async function loadAdmin(){
-  const session = await smgGetSession();
-  if (!session) {
-    document.getElementById("admin-loading").hidden = true;
-    document.getElementById("admin-denied").hidden = false;
-    return;
-  }
-
-  const profile = await smgGetProfile();
-  if (!profile || profile.role !== "admin") {
-    document.getElementById("admin-loading").hidden = true;
-    document.getElementById("admin-denied").hidden = false;
-    return;
-  }
-
-  const { data: orders, error } = await sb
-    .from("orders")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  document.getElementById("admin-loading").hidden = true;
-
-  if (error) {
-    document.getElementById("admin-denied").hidden = false;
-    document.getElementById("admin-denied").textContent = "Couldn't load orders: " + error.message;
-    return;
-  }
-
-  document.getElementById("admin-table").hidden = false;
-  const body = document.getElementById("admin-table-body");
-
-  body.innerHTML = (orders || []).map(o => `
-    <tr data-id="${o.id}">
-      <td>
-        <div style="color:var(--gold); font-family:var(--mono);">${o.order_number}</div>
-        <div style="color:var(--text-mute); font-size:11px;">${new Date(o.created_at).toLocaleString()}</div>
-      </td>
-      <td>
-        <div class="admin-contact">${o.contact_email}</div>
-        <div class="admin-contact">${o.contact_phone || "Not provided"}</div>
-      </td>
-      <td class="admin-items">${o.items.map(i => `${i.qty}× ${i.name}`).join("<br>")}</td>
-      <td>$${Number(o.total).toLocaleString("en-US")}</td>
-      <td style="text-transform:capitalize;">${o.payment_method}</td>
-      <td>
-        <select data-id="${o.id}" class="status-select">
-          <option value="ordered" ${o.status==="ordered"?"selected":""}>Ordered</option>
-          <option value="in_progress" ${o.status==="in_progress"?"selected":""}>In Progress</option>
-          <option value="completed" ${o.status==="completed"?"selected":""}>Completed</option>
-        </select>
-      </td>
-    </tr>
-  `).join("");
-
-  document.querySelectorAll(".status-select").forEach(sel => {
-    sel.addEventListener("change", async () => {
-      const id = sel.dataset.id;
-      const status = sel.value;
-      const { error } = await sb.from("orders").update({ status }).eq("id", id);
-      if (error) alert("Couldn't update status: " + error.message);
-    });
-  });
-}
-
-loadAdmin();
-</script>
-</body>
+<!doctype html>
+<html lang="ht">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Kontakte nou | Social Media Globe</title>
+    <meta
+      name="description"
+      content="Asistans pou monetizasyon rezo sosyal, TikTok Shop, Amazon Seller, pwòp mak ou, imèl pwofesyonèl, LLC, sit entènèt ak òdinatè Jarvis."
+    />
+    <link rel="icon" href="logo/favicon-source.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css?v=20261017-light" />
+    <script src="script.js?v=20261017-light" defer></script>
+  </head>
+  <body id="top">
+    <a class="skip" href="#main">Ale nan kontni an</a>
+    <header class="header">
+      <div class="wrap nav">
+        <a
+          class="brand"
+          href="index.html"
+          aria-label="Social Media Globe — Akèy"
+          ><img src="logo-icon.svg" width="47" height="47" alt="" /><span
+            >SOCIAL MEDIA<span class="brand-second">GLOBE</span></span
+          ></a
+        ><button
+          class="menu-toggle"
+          aria-label="Louvri meni an"
+          aria-expanded="false"
+          aria-controls="navigation"
+        >
+          ☰
+        </button>
+        <nav id="navigation" aria-label="Navigasyon prensipal">
+          <a href="index.html#services">Sèvis nou yo</a
+          ><a href="index.html#approach">Kijan nou travay</a
+          ><a href="index.html#social">Rezo sosyal</a>
+        </nav>
+        <a class="button nav-button" href="index.html#contact"
+          >Ann pale <span>↗</span></a
+        >
+      </div>
+    </header>
+    <main id="main" class="wrap section policy">
+      <p class="eyebrow">SOCIAL MEDIA GLOBE</p>
+      <h1>Ann pale<br />de pwojè w la.</h1>
+      <p>
+        Pou jwenn asistans oswa pale sou yon pwojè, kontakte ekip nou an
+        dirèkteman.
+      </p>
+      <a class="button primary" href="index.html#contact">Kontakte nou ↗</a>
+    </main>
+    <footer>
+      <div class="wrap footer-top">
+        <a
+          class="brand"
+          href="index.html"
+          aria-label="Social Media Globe — Akèy"
+          ><img src="logo-icon.svg" width="47" height="47" alt="" /><span
+            >SOCIAL MEDIA<span class="brand-second">GLOBE</span></span
+          ></a
+        >
+        <p>Yon koneksyon. Yon lide.<br />Yon nouvo etap pou biznis ou.</p>
+        <a href="index.html#top">Retounen anlè ↑</a>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 Social Media Globe</span
+        ><a href="policies.html">Konfidansyalite ak kondisyon</a
+        ><span class="footer-social"
+          ><a
+            href="https://www.facebook.com/people/Socialmediaglobe/61588999744707/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Facebook</a
+          >
+          ·
+          <a
+            href="https://www.instagram.com/socialmediaglobe1"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Instagram</a
+          >
+          ·
+          <a
+            href="https://www.youtube.com/@socialmediaglobe"
+            target="_blank"
+            rel="noopener noreferrer"
+            >YouTube</a
+          >
+          ·
+          <a
+            href="https://www.tiktok.com/@socialmediaglobe1"
+            target="_blank"
+            rel="noopener noreferrer"
+            >TikTok</a
+          ></span
+        ><span>Ann bati prezans ou, ansanm.</span>
+      </div>
+    </footer>
+  </body>
 </html>
