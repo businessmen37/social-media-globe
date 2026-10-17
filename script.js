@@ -49,3 +49,76 @@ form?.addEventListener("submit", (event) => {
   fallback.textContent = "Louvri WhatsApp pou verifye epi voye li ↗";
   status.append(fallback);
 });
+
+// Progressive enhancements: filtering, scroll feedback and restrained motion.
+const filters = document.querySelectorAll("[data-filter]");
+filters.forEach((button) =>
+  button.addEventListener("click", () => {
+    const category = button.dataset.filter;
+    filters.forEach((item) => {
+      const active = item === button;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    let count = 0;
+    document.querySelectorAll(".service").forEach((card) => {
+      card.hidden = category !== "all" && card.dataset.category !== category;
+      if (!card.hidden) count++;
+    });
+    document.querySelector(".filter-status").textContent =
+      count + " domèn ekspètiz parèt.";
+  }),
+);
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+if ("IntersectionObserver" in window) {
+  const reveal = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!reduceMotion.matches) entry.target.classList.add("reveal-in");
+          reveal.unobserve(entry.target);
+        }
+      }),
+    { threshold: 0.08 },
+  );
+  document
+    .querySelectorAll(
+      ".service,.section-heading,.approach-copy,.social-card,.faq-grid",
+    )
+    .forEach((el) => reveal.observe(el));
+  const navLinks = [...document.querySelectorAll("#navigation a")];
+  const sectionsObserver = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting)
+          navLinks.forEach((a) =>
+            a.classList.toggle("current", a.hash === "#" + entry.target.id),
+          );
+      }),
+    { rootMargin: "-15% 0px -50% 0px" },
+  );
+  document
+    .querySelectorAll("#services,#approach,#social")
+    .forEach((section) => sectionsObserver.observe(section));
+}
+const progress = document.querySelector(".scroll-progress");
+function updateProgress() {
+  const bar = document.querySelector(".mobile-contact");
+  const hero = document.querySelector(".hero");
+  const contact = document.querySelector("#contact");
+  if (bar && hero && contact) {
+    const rect = contact.getBoundingClientRect();
+    bar.classList.toggle(
+      "hide",
+      hero.getBoundingClientRect().bottom > 120 ||
+        (rect.top < innerHeight && rect.bottom > 90),
+    );
+  }
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  if (progress)
+    progress.style.transform =
+      "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+}
+window.addEventListener("scroll", updateProgress, { passive: true });
+window.addEventListener("resize", updateProgress);
+updateProgress();
