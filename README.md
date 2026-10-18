@@ -37,3 +37,7 @@ Search Console ownership and sitemap submission must be verified separately. No 
 The stylesheet source files are style.css and seo.css; the served stylesheet is their minified combination at assets/site.min.css. script.js is served as assets/site.min.js. After editing those sources, regenerate the bundles with esbuild. Responsive WebP variants are referenced through srcset. Fonts are preloaded from assets/fonts.
 
 Service-card buttons read “Pale nou de sa” and open WhatsApp directly with a unique prefilled message for the chosen service. No message is sent automatically.
+
+## Distinct section imagery
+
+The homepage hero, planning section and AI feature use separate images. Each AI service language page has its own conceptual visual, with responsive WebP variants and a matching social preview. These are illustrative visuals, not evidence of real offices, equipment ownership or client results.
