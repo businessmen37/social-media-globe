@@ -1,4 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap");
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/assets/fonts/dm-sans-latin-ext.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/assets/fonts/dm-sans-latin.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(/assets/fonts/manrope-latin-ext.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(/assets/fonts/manrope-latin.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
 :root {
   color-scheme: light;
   --ink: #121f1d;
@@ -1950,3 +1993,7 @@ footer {
     height: 26px;
   }
 }
+
+.filter span{opacity:1;color:#526361}.filter.active span{color:#e2ece4}.service-top>span{color:#52685c}
+
+.service>a.service-cta{background:#1d6755;color:#fff;border:1px solid #1d6755;border-radius:10px;padding:13px 17px;min-height:56px;gap:12px;justify-content:flex-start;transition:background .2s,transform .2s}.service>a.service-cta:hover{background:#134b3e;transform:translateY(-2px)}.service>a.service-cta .whatsapp-icon{width:21px;height:21px;flex-shrink:0;fill:currentColor;stroke:none}.service>a.service-cta .service-cta-label{font-size:15px;line-height:1.5;font-weight:600;color:inherit}.service>a.service-cta .service-cta-arrow{font-size:22px;color:#c4f578;margin-left:auto;flex-shrink:0}.service.ai-service{grid-column:1/-1;background:#f2f8ec;border-color:#c8dcc0}.ai-service>p:not(.service-category){max-width:830px}.ai-service .service-bullets{display:flex;flex-wrap:wrap;gap:15px 28px}.ai-service>a.service-cta{max-width:390px;width:100%}@media(max-width:700px){.ai-service .service-bullets{display:grid;gap:12px}.service>a.service-cta{padding:12px;gap:9px}.service>a.service-cta .service-cta-label{font-size:14px}.ai-service>a.service-cta{max-width:100%}}

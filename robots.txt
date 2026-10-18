@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /supabase/
+Disallow: /social-media-globe.zip
+
+Sitemap: https://socialmediaglobe.net/sitemap.xml
