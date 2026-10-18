@@ -10,7 +10,7 @@ Haitian-Creole agency website. Static HTML/CSS/JavaScript, served from the repos
 
 ## Scope
 
-Eight service cards; dedicated Facebook, Instagram, YouTube and TikTok section; responsive navigation; original SVG globe logo. No portfolio, fabricated results, payment scripts, cart, sign-in, or checkout in the active site. Former account/admin URLs now lead visitors to contact.
+Nine service cards; dedicated Facebook, Instagram, YouTube and TikTok section; responsive navigation; original SVG globe logo. No portfolio, fabricated results, payment scripts, cart, sign-in, or checkout in the active site. Former account/admin URLs now lead visitors to contact.
 
 ## Legacy infrastructure
 
@@ -27,3 +27,13 @@ White editorial layout with 18–20px reading text, large contact buttons, optim
 Custom images were generated with the built-in image generation tool and are conceptual illustrations, not photographs of employees or client projects. Hero: a premium laptop still life with an interconnected luminous globe and glass orbit. Strategy: a bright laptop/notebook planning workspace.
 
 Social logo artwork: Simple Icons (brand trademarks remain the property of their respective owners). Service and checkmark icons: Lucide. Source SVGs and licenses are in assets/icons.
+
+## Search and languages
+
+Service guides and AI-video pages are available at /services/{ht,en,fr,es}/ and /ai-video/{ht,en,fr,es}/. The homepage remains Haitian Creole. Corresponding localized pages use reciprocal hreflang annotations and visible language links. Canonicals, Organization/WebSite/Service/Breadcrumb JSON-LD, social previews, robots.txt and sitemap.xml are included. Account/admin utility pages are noindex. Fonts are self-hosted in assets/fonts with OFL licenses.
+
+Search Console ownership and sitemap submission must be verified separately. No ranking or indexing guarantee is implied. Content describes only the agreed service scope, including owner-confirmed AI video creation, editing and automation.
+
+The stylesheet source files are style.css and seo.css; the served stylesheet is their minified combination at assets/site.min.css. script.js is served as assets/site.min.js. After editing those sources, regenerate the bundles with esbuild. Responsive WebP variants are referenced through srcset. Fonts are preloaded from assets/fonts.
+
+Service-card buttons now read “Mande yon konsiltasyon” and open WhatsApp directly with a unique prefilled message for the chosen service. No message is sent automatically.

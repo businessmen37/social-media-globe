@@ -21,11 +21,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 const form = document.querySelector("#contact-form");
-document.querySelectorAll("[data-service]").forEach((link) =>
-  link.addEventListener("click", () => {
-    if (form) form.elements.service.value = link.dataset.service;
-  }),
-);
 form?.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
