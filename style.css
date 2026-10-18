@@ -1994,6 +1994,168 @@ footer {
   }
 }
 
-.filter span{opacity:1;color:#526361}.filter.active span{color:#e2ece4}.service-top>span{color:#52685c}
+.filter span {
+  opacity: 1;
+  color: #526361;
+}
+.filter.active span {
+  color: #e2ece4;
+}
+.service-top > span {
+  color: #52685c;
+}
 
-.service>a.service-cta{background:#1d6755;color:#fff;border:1px solid #1d6755;border-radius:10px;padding:13px 17px;min-height:56px;gap:12px;justify-content:flex-start;transition:background .2s,transform .2s}.service>a.service-cta:hover{background:#134b3e;transform:translateY(-2px)}.service>a.service-cta .whatsapp-icon{width:21px;height:21px;flex-shrink:0;fill:currentColor;stroke:none}.service>a.service-cta .service-cta-label{font-size:15px;line-height:1.5;font-weight:600;color:inherit}.service>a.service-cta .service-cta-arrow{font-size:22px;color:#c4f578;margin-left:auto;flex-shrink:0}.service.ai-service{grid-column:1/-1;background:#f2f8ec;border-color:#c8dcc0}.ai-service>p:not(.service-category){max-width:830px}.ai-service .service-bullets{display:flex;flex-wrap:wrap;gap:15px 28px}.ai-service>a.service-cta{max-width:390px;width:100%}@media(max-width:700px){.ai-service .service-bullets{display:grid;gap:12px}.service>a.service-cta{padding:12px;gap:9px}.service>a.service-cta .service-cta-label{font-size:14px}.ai-service>a.service-cta{max-width:100%}}
+.service > a.service-cta {
+  background: #1d6755;
+  color: #fff;
+  border: 1px solid #1d6755;
+  border-radius: 10px;
+  padding: 13px 17px;
+  min-height: 56px;
+  gap: 12px;
+  justify-content: flex-start;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.service > a.service-cta:hover {
+  background: #134b3e;
+  transform: translateY(-2px);
+}
+.service > a.service-cta .whatsapp-icon {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  fill: currentColor;
+  stroke: none;
+}
+.service > a.service-cta .service-cta-label {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: inherit;
+}
+.service > a.service-cta .service-cta-arrow {
+  font-size: 22px;
+  color: #c4f578;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.service.ai-service {
+  grid-column: 1/-1;
+  background: #f2f8ec;
+  border-color: #c8dcc0;
+}
+.ai-service > p:not(.service-category) {
+  max-width: 830px;
+}
+.ai-service .service-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 28px;
+}
+.ai-service > a.service-cta {
+  max-width: 390px;
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .ai-service .service-bullets {
+    display: grid;
+    gap: 12px;
+  }
+  .service > a.service-cta {
+    padding: 12px;
+    gap: 9px;
+  }
+  .service > a.service-cta .service-cta-label {
+    font-size: 14px;
+  }
+  .ai-service > a.service-cta {
+    max-width: 100%;
+  }
+}
+
+/* Shared lime action-button treatment across the site. */
+.button,
+.button.primary,
+.button.secondary,
+.service > a.service-cta,
+.mobile-contact {
+  background: #c4f578;
+  color: #17291e;
+  border: 1px solid #c4f578;
+  border-radius: 10px;
+  min-height: 56px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  gap: 20px;
+}
+.button:hover,
+.button.primary:hover,
+.button.secondary:hover,
+.service > a.service-cta:hover,
+.mobile-contact:hover {
+  background: #b7ee64;
+  border-color: #b7ee64;
+  color: #17291e;
+  transform: translateY(-2px);
+}
+.service > a.service-cta {
+  justify-content: space-between;
+}
+.service > a.service-cta .service-cta-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: inherit;
+}
+.service > a.service-cta .service-cta-arrow,
+.mobile-contact span {
+  color: inherit;
+  font-size: 22px;
+}
+.nav-button {
+  min-height: 56px;
+}
+.menu-toggle {
+  background: #c4f578;
+  border-color: #c4f578;
+  border-radius: 10px;
+}
+.filter {
+  border-radius: 10px;
+  background: #edf8db;
+  border-color: #d2e6b6;
+  color: #17291e;
+}
+.filter.active {
+  background: #c4f578;
+  border-color: #89ad58;
+  color: #17291e;
+  box-shadow: 0 0 0 1px #89ad58;
+}
+.filter.active span {
+  color: #17291e;
+}
+.language-links a {
+  border-radius: 10px;
+}
+.language-links a[aria-current="page"] {
+  background: #c4f578;
+  color: #17291e;
+  border-color: #a4c974;
+}
+@media (max-width: 700px) {
+  .service > a.service-cta {
+    padding: 14px 16px;
+    gap: 15px;
+  }
+  .service > a.service-cta .service-cta-label {
+    font-size: 16px;
+  }
+  .actions .button,
+  .direct-whatsapp {
+    font-size: 16px;
+  }
+}
